@@ -13,13 +13,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
-/**
- *
- * @author usuario
- */
+
 public class HistogramDisplay extends ApplicationFrame {
-   public HistogramDisplay(){
+
+    private final Histogram<String> histogram;
+    
+    public HistogramDisplay(Histogram<String> histogram){
        super("Histograma");
+       this.histogram=histogram;
        setContentPane(createPanel());
        pack();
    }
@@ -48,10 +49,9 @@ public class HistogramDisplay extends ApplicationFrame {
     
     private DefaultCategoryDataset createDataset(){
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        dataSet.addValue(10, "", "gmail.com");
-        dataSet.addValue(12, "", "outlook.com");
-        dataSet.addValue(8, "", "yahoo.com");
-        dataSet.addValue(18, "", "ulpgc.es");
+        for (String key : histogram.keySet()) {
+            dataSet.addValue(histogram.get(key),"",key);
+        }
         return dataSet;
     }
 }
